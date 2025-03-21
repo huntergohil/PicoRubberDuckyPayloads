@@ -1,0 +1,29 @@
+import time
+import usb_hid
+from adafruit_hid.keyboard import Keyboard
+from adafruit_hid.keycode import Keycode
+from adafruit_hid.keyboard_layout_us import KeyboardLayoutUS
+
+kbd = Keyboard(usb_hid.devices)
+layout = KeyboardLayoutUS(kbd)
+
+# Delay to allow the system to be ready
+time.sleep(1)
+
+# Open the Start Menu (Windows key)
+kbd.press(Keycode.WINDOWS)
+kbd.release_all()
+time.sleep(0.5)
+
+# Type 'Chrome' or 'Edge' or 'Firefox' (depending on your default browser)
+layout.write("chrome")
+time.sleep(0.5)
+kbd.press(Keycode.ENTER)
+kbd.release_all()
+time.sleep(1.5)  # Wait for the browser to open
+
+# Type Google search URL
+layout.write("https://www.google.com/search?q=You+got+hacked")
+time.sleep(0.5)
+kbd.press(Keycode.ENTER)
+kbd.release_all()
